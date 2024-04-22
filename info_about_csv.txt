@@ -1,3 +1,4 @@
-It should be noted that due to the size of the csv file (Well over 240,000+ lines), it isn't really reasonable to put it here. It can be downloaded from "Kaggle" at the url linked below:
+It should be noted that due to the size of the csv file (Well over 240,000+ lines), it isn't really reasonable to put it here. 
+It can be downloaded from "Kaggle" at the url linked below:
 
 https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud/data 
