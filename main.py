@@ -51,9 +51,7 @@ def evaluate_model(model: BaseEstimator, y_test: pd.Series, y_pred: np.ndarray, 
 
     Returns:
     - None
-
-    This function prints out the confusion matrix and gives a window that provides a plot of the data
-
+    S
     This function evaluates the performance of the specified model on the provided test set by printing
     a confusion matrix, classification report, and accuracy score. Additionally, it calculates the 
     Area Under the Precision-Recall Curve (AUC-PR) and plots the Precision-Recall curve.
