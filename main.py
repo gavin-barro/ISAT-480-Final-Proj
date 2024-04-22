@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+
 def preprocess_data(dataframe: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
     """
     Process the input DataFrame to prepare for machine learning training.
@@ -23,17 +24,20 @@ def preprocess_data(dataframe: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
 
     # Feature Scaling for 'Amount' and 'Time'
     scaler = StandardScaler()
-    dataframe['NormalizedAmount'] = scaler.fit_transform(dataframe['Amount'].values.reshape(-1, 1))
-    dataframe['NormalizedTime'] = scaler.fit_transform(dataframe['Time'].values.reshape(-1, 1))
+    dataframe['NormalizedAmount'] = scaler.fit_transform(
+        dataframe['Amount'].values.reshape(-1, 1))
+    dataframe['NormalizedTime'] = scaler.fit_transform(
+        dataframe['Time'].values.reshape(-1, 1))
 
     # Drop the original 'Time' and 'Amount' columns
-    data = dataframe.drop(['Time', 'Amount'], axis=1)
+    data = dataframe.drop(['Time', 'Amount'], axis = 1)
 
     # Splitting the data into features (X) and labels (y)
-    X = data.drop('Class', axis=1)
+    X = data.drop('Class', axis = 1)
     y = data['Class']
 
     return X, y
+
 
 def evaluate_model(model: BaseEstimator, y_test: pd.Series, y_pred: np.ndarray, X_test: pd.DataFrame) -> None:
     """
@@ -69,7 +73,8 @@ def evaluate_model(model: BaseEstimator, y_test: pd.Series, y_pred: np.ndarray, 
     print("Accuracy Score:", accuracy_score(y_test, y_pred))
 
     # Precision-Recall Curve
-    precision, recall, _ = precision_recall_curve(y_test, model.predict_proba(X_test)[:,1])
+    precision, recall, _ = precision_recall_curve(
+        y_test, model.predict_proba(X_test)[:, 1])
     pr_auc = auc(recall, precision)
     print("AUC-PR:", pr_auc)
 
@@ -81,6 +86,7 @@ def evaluate_model(model: BaseEstimator, y_test: pd.Series, y_pred: np.ndarray, 
     plt.legend()
     plt.show()
 
+
 def main() -> None:
     # Read in the dataframe via the Pandas Library
     dataframe = pd.read_csv("FinalProj/creditcard.csv")
@@ -89,21 +95,21 @@ def main() -> None:
     X, y = preprocess_data(dataframe)
 
     # Splitting the data
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y) 
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size = 0.2, random_state = 42, stratify = y)
 
     # Creating the model
-    model = RandomForestClassifier(n_estimators=100, random_state=42)
+    model = RandomForestClassifier(n_estimators = 100, random_state = 42)
 
     # Training the model
-    model.fit(X_train, y_train) 
+    model.fit(X_train, y_train)
 
     # Predicting the Test set results
     y_pred = model.predict(X_test)
 
     # Evaluating our model
-    evaluate_model(model, y_test, y_pred, X_test)  
+    evaluate_model(model, y_test, y_pred, X_test)
 
 
 if __name__ == "__main__":
     main()
-    
